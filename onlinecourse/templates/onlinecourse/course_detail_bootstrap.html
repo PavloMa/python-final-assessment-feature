@@ -67,7 +67,8 @@
 
             <div id="exam" class="collapse">
                 <!-- <HINT> Create a form to collect the selected choices for all questions -->
-                <form id="questionform" action="point to a submit view" method="POST">
+                <form id="questionform" action="{% url 'onlinecourse:submit' course.id %}" method="POST">
+                    {% csrf_token %}
                     <!-- <HINT> Each course test will have many questions -->
                     {% for question in course.question_set.all %}
                         <div class="card mt-1">
@@ -78,12 +79,12 @@
                                 <!-- <HINT> Each question will have many choices -->
                                 {% for choice in question.choice_set.all %}
                                     <div class="form-check">
-                                            <input type="checkbox" name="choice_{{choice.id}}"
-                                                    class="form-check-input" id="{{choice.id}}"
-                                                    value="{{choice.id}}"/>
-                                            <label class="form-check-label" for="{{choice.id}}">
-                                                {{ choice.text }}
-                                            </label>
+                                        <input type="checkbox" name="choice_{{choice.id}}"
+                                                class="form-check-input" id="{{choice.id}}"
+                                                value="{{choice.id}}"/>
+                                        <label class="form-check-label" for="{{choice.id}}">
+                                            {{ choice.text }}
+                                        </label>
                                     </div>
                                 {% endfor %}
                             </div>

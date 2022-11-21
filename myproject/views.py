@@ -8,4 +8,4 @@ from django.http import HttpResponse
 def index(request):
     context = {}
     if request.method == 'GET':
-        return render(request, 'onlinecourse/index.html', context)
+        return render(request, 'onlinecourse/index.html', context )

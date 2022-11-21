@@ -132,6 +132,8 @@ def submit(request, course_id):
     for choice in choices:
         submission.choices.add(choice)
 
+    #submission.max_grade
+
     # Redirect to show_exam_result with the submission id
     return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id, submission.id)))
 
@@ -172,6 +174,12 @@ def show_exam_result(request, course_id, submission_id):
     context['course'] = course
     context['grade'] = score
     context['choices'] = choices
+    max_grade = course.get_max_score()
+    context['max_grade'] = max_grade
+    if score / max_grade > 0.8:
+        context['pass'] = True
+    else:
+        context['pass'] = False
 
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 

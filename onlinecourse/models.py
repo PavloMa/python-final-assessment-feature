@@ -69,6 +69,12 @@ class Course(models.Model):
         return "Name: " + self.name + "," + \
                "Description: " + self.description
 
+    # Get the total max score of all the questions for this course
+    def get_max_score(self):
+        total = 0
+        for question in self.question_set.all():
+            total = total + question.grade
+        return total
 
 # Lesson model
 class Lesson(models.Model):
